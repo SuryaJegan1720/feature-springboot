@@ -5,6 +5,7 @@ import com.sample.test.repos.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +21,13 @@ public class EmployeeService {
 
     // CREATE
     public Employee createEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+        if (employee != null) {
+            if (employee.getCreateAt() == null)
+                employee.setCreateAt(LocalDateTime.now());
+            return employeeRepository.save(employee);
+        }
+        return null;
     }
-
 
     // READ BY ID
     public Employee getEmployeeById(Integer id) {
@@ -45,6 +50,7 @@ public class EmployeeService {
         existingEmployee.setDepartment(employee.getDepartment());
         existingEmployee.setCreateAt(employee.getCreateAt());
 
+        employeeRepository.save(existingEmployee);
         return existingEmployee;
     }
 

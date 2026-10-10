@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -26,7 +27,7 @@ public class Employee {
     @Column(length = 100)
     private String department;
 
-    @Column(name="created_at")
-    private Date createAt;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createAt;
 
 }
