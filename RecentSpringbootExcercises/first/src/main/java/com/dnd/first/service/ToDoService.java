@@ -19,7 +19,7 @@ public class ToDoService {
         todos.add(new ToDo(1, "surya", "Learn-MySql", new Date(),
                 false));
         todos.add(new ToDo(2, "surya", "Learn SpringBoot ", new Date(), false));
-        todos.add(new ToDo(3, "surya", "Learn Hibernate", new Date(),
+        todos.add(new ToDo(3, "Jegan", "Learn Hibernate", new Date(),
                 false));
     }
 
