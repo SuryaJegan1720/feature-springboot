@@ -3,10 +3,8 @@ package stream;
 import model.Employee;
 
 import javax.xml.transform.stream.StreamSource;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class StreamOperations {
@@ -49,4 +47,84 @@ public class StreamOperations {
     private static void extracted(Map<String, Long> collect) {
         collect.forEach((key, value) -> System.out.println(key + "=" + value));
     }
+
+    public void getPrograms() {
+      Integer[] arr  = new Integer[]{71, 18, 42, 21, 67, 32, 95, 14, 56, 87};
+      List<Integer> listOfIntegers =Arrays.asList(arr);
+
+        //Given a list of integers, separate odd and even numbers True: 18,42 false: 71,21
+        Map<Boolean, List<Integer>> collect = listOfIntegers.stream().sorted().collect(Collectors.partitioningBy(e -> e % 2 == 0));
+        collect.forEach((key, value)-> {
+            if(key)
+                System.out.println(value);
+            else
+                System.out.println(value);
+        });
+        //How do you remove duplicate elements from a list using Java 8 streams?
+        List<String> listOfStrings = Arrays.asList("Java", "Python", "C#", "Java", "Kotlin", "Python");
+        List<String> collect1 = listOfStrings.stream().distinct().toList();
+
+        Set<String> setOfStrings = new HashSet<>(listOfStrings);
+        for (String s : setOfStrings) {
+            System.out.println(s);
+        }
+
+
+
+        Map<String, Long> collect2 = listOfStrings.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+        collect2.forEach((key,value) -> {
+            if(value > 1){
+            System.out.println(key);
+            }
+        });
+
+        //How do you find frequency of each character in a string using Java 8 streams
+        String inputString = "Java Concept Of The Day";
+        Map<Character, Long> frequencies = inputString.chars()
+                .mapToObj(c -> (char) c)
+                .filter(Character::isLetter)
+                .map(Character::toLowerCase)
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        Collectors.counting()
+                ));
+
+        frequencies.forEach((letter, count) ->
+                System.out.println(letter + ": " + count)
+        );
+        //How do you sort the given list of decimals in reverse order
+
+        List<Double> decimalList = Arrays.asList(12.45, 23.58, 17.13, 42.89, 33.78, 71.85, 56.98, 21.12);
+
+        List<Double> list = decimalList.stream().sorted().toList();
+
+       // list.forEach(e-> System.out.println(e + " "));
+
+        decimalList.stream().sorted(Comparator.reverseOrder()).forEach(e-> System.out.println(e + " "));;
+       // Given a list of strings, join the strings with ‘[‘ as prefix, ‘]’ as suffix and ‘,’ as delimiter?
+        List<String> listOfStrings2 = Arrays.asList("Facebook", "Twitter", "YouTube", "WhatsApp", "LinkedIn");
+        String collect3 = listOfStrings2.stream().collect(Collectors.joining(",", "[", "]"));
+        System.out.println(collect3);
+        // From the given list of integers, print the numbers which are multiples of 5?
+        List<Integer> listOfIntegers2 = Arrays.asList(45, 12, 56, 15, 24, 75, 31, 89,90,100);
+
+        listOfIntegers2.stream().filter(e-> e%5 == 0).forEach(System.out::println);
+
+       // Given a list of integers, find maximum and minimum of those numbers?
+        List<Integer> listOfIntegers3 = Arrays.asList(45, 12, 56, 15, 24, 75, 31, 89);
+        List<Integer> list1 = listOfIntegers3.stream().sorted().toList();
+        Integer i = list1.get(0);
+        Integer i1 = list1.get(list1.size() - 1);
+        System.out.println(i + " " + i1);
+
+        Optional<Integer> max = listOfIntegers3.stream().min(Comparator.comparing(Integer::intValue));
+        System.out.println(max.get());
+
+
+
+
+
+
+    }
 }
+

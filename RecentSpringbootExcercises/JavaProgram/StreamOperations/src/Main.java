@@ -31,5 +31,6 @@ public class Main {
         employeeList.add(new Employee(277, "Anuj Chettiar", 31, "Male", "Product Development", 2012, 35700.0));
 
         streamOperations.getStreamOperations(employeeList);
+        streamOperations.getPrograms();
     }
 }
